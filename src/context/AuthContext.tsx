@@ -1,7 +1,17 @@
 import { createContext, useContext, type PropsWithChildren } from "react";
 
+type AuthStatus = 'checking' | 'authenticated' | 'unauthenticated';
+
+interface User {
+    name: string;
+    email: string;
+} // esto lo hacemos para evitar anidar en AuthState
+
 interface AuthState {
-    hola: string;
+    status: AuthStatus;
+    token?: string;
+
+    user?: User;
 }
 
 export const AuthContext = createContext({} as AuthState);
@@ -12,7 +22,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
     return (
         <AuthContext.Provider value={{
-            hola: 'Mundo',
+            status: 'checking'
         }}
         >
             {children}
