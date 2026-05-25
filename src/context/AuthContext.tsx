@@ -8,9 +8,9 @@ interface User {
 }
 
 interface AuthState {
-    status: AuthStatus,
-    token?: string,
-    user?: User,
+    status: AuthStatus;
+    isChecking: boolean;
+    isAuthenticated: boolean;
 }
 
 export const AuthContext = createContext({} as AuthState);
@@ -26,14 +26,16 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
             setStatus("unauthenticated")
         }, 1500);
 
-    }, []) 
+    }, [])
 
 
     return (
-        <AuthContext.Provider value={{
-            status: status,
-            
-        }}
+        <AuthContext.Provider
+            value={{
+                status: status,
+                isChecking: status === 'checking',
+                isAuthenticated: status === 'authenticated',
+            }}
         >
             {children}
         </AuthContext.Provider>

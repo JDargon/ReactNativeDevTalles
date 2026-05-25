@@ -1,14 +1,18 @@
 import { useAuthContext } from "../context/AuthContext"
 
 export const LoginPage = () => {
-
-    const { status } = useAuthContext();
+    const { isChecking, isAuthenticated } = useAuthContext();
 
     return (
         <>
             <h3>Login</h3>
 
-            <span>{ status }</span>
+            {isChecking && <span>Comprobando sesión...</span>}
+
+            {!isChecking && !isAuthenticated && <span>Usuario no autenticado</span>}
+
+            {isAuthenticated && <span>Usuario autenticado</span>}
+
         </>
     );
 };
