@@ -11,7 +11,9 @@ interface AuthState {
     status: AuthStatus;
     isChecking: boolean;
     isAuthenticated: boolean;
-    user?:User;
+    user?: User;
+    loginWithEmailPassword: (email: string, password: string) => void;
+    exitLogin: () => void;
 }
 
 export const AuthContext = createContext({} as AuthState);
@@ -22,7 +24,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
     const [status, setStatus] = useState<AuthStatus>("checking");
 
-    const [user, setUser] = useState<User>()//
+    const [user, setUser] = useState<User>()
 
     useEffect(() => {
         setTimeout(() => {
@@ -31,23 +33,32 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
     }, [])
 
-    const loginWithEmailPassword = (email:string, password:string) => {//
+    const loginWithEmailPassword = (email: string, password: string) => {
 
         setUser({
             name: 'Fernando Herrera',
             email: email,
         })
+        setStatus('authenticated');
 
-    } 
+    }
+
+    const exitLogin = () => {
+
+        setUser(undefined)
+        setStatus('unauthenticated');
+    }
 
 
     return (
         <AuthContext.Provider
             value={{
-                status: status,//
-                user:user,
+                status: status,
+                user: user,
                 isChecking: status === 'checking',
                 isAuthenticated: status === 'authenticated',
+                loginWithEmailPassword,
+                exitLogin,
             }}
         >
             {children}
