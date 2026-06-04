@@ -10,7 +10,7 @@ export const loadUsersAction = async (page: number) => {
                 page: page
             },
             headers: {
-                'x-api-key': 'free_user_3EZUWEOAZuQYRtlXrad8aEgDE6g',
+                'x-api-key': 'free_user_3EZUWEOAZuQYRtIXrad8aEgDE6g'
             }
         })
 

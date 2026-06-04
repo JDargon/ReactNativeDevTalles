@@ -1,6 +1,12 @@
+import { useUsers } from "../hooks/useUsers"
 import { UserRow } from "./UserRow"
 
 export const UsersPage = () => {
+
+    const { users } = useUsers();
+
+    console.log(users);
+
     return (
         <>
             <h3>Usuarios:</h3>
